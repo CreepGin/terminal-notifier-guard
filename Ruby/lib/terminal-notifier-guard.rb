@@ -30,6 +30,7 @@ module TerminalNotifier
           bin_path = TerminalNotifier::Guard::Notify::BIN_PATH
         end
         options.delete(:type) if options[:type]
+        options[:sender] = "com.apple.Terminal"
 
         command = [bin_path, *options.map { |k,v| ["-#{k}", v.to_s] }.flatten]
         if RUBY_VERSION < '1.9'
