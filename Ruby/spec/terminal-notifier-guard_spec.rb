@@ -11,7 +11,7 @@ require 'terminal-notifier-guard'
 describe "TerminalNotifier::Guard" do
   describe ".execute" do
     it "executes the tool with the given options" do
-      command = [TerminalNotifier::Guard::Notify::BIN_PATH, '-message', 'ZOMG']
+      command = [TerminalNotifier::Guard::Notify::BIN_PATH, '-message', 'ZOMG', '-sender', 'com.apple.Terminal']
       if RUBY_VERSION < '1.9'
         require 'shellwords'
         command = Shellwords.shelljoin(command)
@@ -21,7 +21,7 @@ describe "TerminalNotifier::Guard" do
     end
 
     it "executes the right tool according to the type option" do
-      command = [TerminalNotifier::Guard::Success::BIN_PATH, '-message', 'ZOMG']
+      command = [TerminalNotifier::Guard::Success::BIN_PATH, '-message', 'ZOMG', '-sender', 'com.apple.Terminal']
       if RUBY_VERSION < '1.9'
         require 'shellwords'
         command = Shellwords.shelljoin(command)
@@ -31,7 +31,7 @@ describe "TerminalNotifier::Guard" do
     end
 
     it "returns the result output of the command" do
-      TerminalNotifier::Guard.execute(false, 'help' => '').should == `'#{TerminalNotifier::Guard::Notify::BIN_PATH}' -help`
+      TerminalNotifier::Guard.execute(false, 'help' => '').should == `'#{TerminalNotifier::Guard::Notify::BIN_PATH}' -help -sender com.apple.Terminal`
     end
 
     it "sends a notification" do
@@ -87,7 +87,7 @@ describe "TerminalNotifier::Guard" do
 
   describe ".failed" do
     it "executes the 'failed' tool binary" do
-      command = [TerminalNotifier::Guard::Failed::BIN_PATH, '-message', 'ZOMG']
+      command = [TerminalNotifier::Guard::Failed::BIN_PATH, '-message', 'ZOMG', '-sender', 'com.apple.Terminal']
       if RUBY_VERSION < '1.9'
         require 'shellwords'
         command = Shellwords.shelljoin(command)
@@ -99,7 +99,7 @@ describe "TerminalNotifier::Guard" do
 
   describe ".success" do
     it "executes the 'success' tool binary" do
-      command = [TerminalNotifier::Guard::Success::BIN_PATH, '-message', 'ZOMG']
+      command = [TerminalNotifier::Guard::Success::BIN_PATH, '-message', 'ZOMG', '-sender', 'com.apple.Terminal']
       if RUBY_VERSION < '1.9'
         require 'shellwords'
         command = Shellwords.shelljoin(command)
@@ -111,7 +111,7 @@ describe "TerminalNotifier::Guard" do
 
   describe ".pending" do
     it "executes the 'pending' tool binary" do
-      command = [TerminalNotifier::Guard::Pending::BIN_PATH, '-message', 'ZOMG']
+      command = [TerminalNotifier::Guard::Pending::BIN_PATH, '-message', 'ZOMG', '-sender', 'com.apple.Terminal']
       if RUBY_VERSION < '1.9'
         require 'shellwords'
         command = Shellwords.shelljoin(command)
